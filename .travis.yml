@@ -5,10 +5,10 @@ install: go get -t ./...
 script: 
   - go build -o firehose/firehose -ldflags "-X main.VERSION=${VERSION}" firehose/main.go 
   - go build -o firetruck/firetruck -ldflags "-X main.VERSION=${VERSION}" firetruck/main.go 
-  - GOARCH=amd64 GOOS=windows go build firetruck/firetruck -ldflags "-X main.VERSION=${VERSION}" firetruck/main.go 
-  - GOARCH=amd64 GOOS=windows go build firehose/firehose -ldflags "-X main.VERSION=${VERSION}" firehose/main.go 
-  - GOARCH=amd64 GOOS=darwin go build firetruck/firetruck.darwin -ldflags "-X main.VERSION=${VERSION}" firetruck/main.go 
-  - GOARCH=amd64 GOOS=darwin go build firehose/firehose.darwin -ldflags "-X main.VERSION=${VERSION}" firehose/main.go 
+  - GOARCH=amd64 GOOS=windows go build -o firetruck/firetruck.exe -ldflags "-X main.VERSION=${VERSION}" firetruck/main.go 
+  - GOARCH=amd64 GOOS=windows go build -o firehose/firehose.exe -ldflags "-X main.VERSION=${VERSION}" firehose/main.go 
+  - GOARCH=amd64 GOOS=darwin go build -o firetruck/firetruck.darwin -ldflags "-X main.VERSION=${VERSION}" firetruck/main.go 
+  - GOARCH=amd64 GOOS=darwin go build -o firehose/firehose.darwin -ldflags "-X main.VERSION=${VERSION}" firehose/main.go 
 
 deploy:
   provider: releases
