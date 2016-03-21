@@ -51,7 +51,7 @@ Windows and push them to a Github release. To automatically get the latest full 
 `wget $(curl -s https://api.github.com/repos/therealbill/slammer/releases/latest | grep 'browser_' | cut -d\" -f4)`
 
 To get just Linux binaries:
-`wget $(curl -s https://api.github.com/repos/therealbill/slammer/releases/latest | grep 'browser_' | cut -d\" -f4| grep linux))`
+`wget $(curl -s https://api.github.com/repos/therealbill/slammer/releases/latest | grep 'browser_' | cut -d\" -f4| egrep -v '(exe|darwin)'))`
 
 To get just Windows binaries:
 `wget $(curl -s https://api.github.com/repos/therealbill/slammer/releases/latest | grep 'browser_' | cut -d\" -f4| grep exe)`
