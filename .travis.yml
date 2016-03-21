@@ -13,3 +13,4 @@ deploy:
     - firetruck/firetruck
   on:
     repo: therealbill/slammer
+    tags: true
