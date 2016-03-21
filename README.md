@@ -51,3 +51,7 @@ Magic Eight Ball says "Uncertain". I can think of several mre thigs the tool
 does but for now it serves the need. If you've got something you'd like to see
 added, feel free to submit an issue on Github or, even better, an issue and a
 PR impementing it.
+
+## Auto-Releases
+
+I'm setting this up with travis-ci.org to build releases on new commits.
