@@ -1,21 +1,42 @@
 VERSION = $(shell cat .version)
 GHT = $(GITHUB_TOKEN)
+LAST_TAG = $(shell  git describe --abbrev=0 --tags | tr -d v)
 
 all: 
-	@echo all binaries built
 	@echo Building firehose
 	go build -o firehose/firehose -ldflags "-X main.VERSION=${VERSION}" firehose/main.go 
 	@echo Building firetruck
 	go build -o firetruck/firetruck -ldflags "-X main.VERSION=${VERSION}" firetruck/main.go 
 
-release: firehose firetruck
-	mkdir -p dist/usr/sbin
-	mv eventilator dist/usr/sbin
-	mv firetruck/firetruck dist/usr/sbin
-	mv firehost/firehost dist/usr/sbin
-	cd dist && tar -cvzf ../slammer-${VERSION}.tar.gz usr/ && cd ..
-	echo Version=${VERSION}
-	ls -lh eventilator-${VERSION}.tar.gz
-	@echo  ghr --username therealbill --token NOTSHOWN ${VERSION} eventilator-${VERSION}.tar.gz
-	ghr  --username therealbill --token ${GHT} ${VERSION} eventilator-${VERSION}.tar.gz
+release: 
+ifeq "$(VERSION)" "$(LAST_TAG)"
+	@echo "No Version bump found, not doing anything. You'll need to run 'make major', 'make minor', or 'make revision' depending on how much you want to bump the version"
+else 
+	@echo Building release v$(VERSION)
+	@echo Creating Git tag
+	@git tag -a v$(shell cat .version) -m "Version $(shell cat .version)"
+	@echo Pushing git tag
+	@git push && git push --tags
+endif
+
+revision:
+	@echo Bumping revision. Last version was $(VERSION)
+	@./scripts/bump-revision.sh
+	@echo adding .version to git commit
+	@git add .version
+	@echo Now ready to run 'make release' to push the tag to github which will trigger travis-ci.org to build the release if all is well
+
+minor:
+	@echo Bumping minor. Last version was $(VERSION)
+	@./scripts/bump-minor.sh
+	@echo adding .version to git commit
+	@git add .version
+	@echo Now ready to run 'make release' to push the tag to github which will trigger travis-ci.org to build the release if all is well
+
+major:
+	@echo Bumping major. Last version was $(VERSION)
+	@./scripts/bump-major.sh
+	@echo adding .version to git commit
+	@git add .version
+	@echo Now ready to run 'make release' to push the tag to github which will trigger travis-ci.org to build the release if all is well
 
