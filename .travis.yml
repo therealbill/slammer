@@ -7,8 +7,8 @@ script:
   - go build -o linux//firetruck -ldflags "-X main.VERSION=${VERSION}" firetruck/main.go 
   - GOARCH=amd64 GOOS=windows go build -o windows/firetruck.exe -ldflags "-X main.VERSION=${VERSION}" firetruck/main.go 
   - GOARCH=amd64 GOOS=windows go build -o windows/firehose.exe -ldflags "-X main.VERSION=${VERSION}" firehose/main.go 
-  - GOARCH=amd64 GOOS=darwin go build -o darwin/firetruck.darwin -ldflags "-X main.VERSION=${VERSION}" firetruck/main.go 
-  - GOARCH=amd64 GOOS=darwin go build -o darwin/firehose.darwin -ldflags "-X main.VERSION=${VERSION}" firehose/main.go 
+  - GOARCH=amd64 GOOS=darwin go build -o darwin/firetruck -ldflags "-X main.VERSION=${VERSION}" firetruck/main.go 
+  - GOARCH=amd64 GOOS=darwin go build -o darwin/firehose -ldflags "-X main.VERSION=${VERSION}" firehose/main.go 
 
 deploy:
   provider: releases
@@ -16,9 +16,12 @@ deploy:
   api_key:
     secure: cQReUEcsgpZFMEpLI37d69cbknZYNd7/8A2IaUC6j03JnO3OW9r3Petk/Yc2gOnbMxZl4wNuyUXVN2rrQHcBjY9Nz7RUwA2dLu9EpMyqgGZN967VF90B62rpslCGW361uQpCs362rALe8CRWreepDkMHHHU1D1EkabITxj43aeZY61NBY4si5UbNmaXtiusE1E/INKATFer5mm95VYdkGl/XJLzqgRwkKb/WL323kmyFCSQ2B6r1yFZv5nneggoRpn+6gknJOdsxL6IajISAg8gRjEuk6In+leTPZXsE/B/tgYtT6XnwR3jfslnqLvC/pBozgchzW6GDrlYSNbp8m2sY4G8543TPQdwjhsra6lcMtN8moO/LDLQ+KF0ETjSnhwtGK+6iZlow+xlIstHPNA8ASRur89N8KaMWDn/WWOAIKklsfTMY7zinDs8l/hLRXexmU2At+XKqaZaHfeKuPv337SJNXswibtUvTpaWD9KTqjGldqDFp46LZDhj7OVok0dbqWkPUyi3C4kPUPj2xkQJ1u6DYJMnvbr9ImWW3eewGztCdWoIWyuMxIvIb78d2YRsNE+QhxMY0b2SNFgTq5Ih39KPIpSkowH+kq7daUuIwfgWHvkwLCXvR2YMXw4XRHxmMUeD7yBTSOs74+PUUL7vAULpUpEq3T3ndiQOTr4=
   file: 
-    - linux/
-    - darwin/
-    - windows
+    - linux/firehose
+    - linux/firetruck
+    - darwin/firehose
+    - darwin/firetruck
+    - windows/firehose.exe
+    - windows/firetruck.exe
   on:
     repo: therealbill/slammer
     tags: true
