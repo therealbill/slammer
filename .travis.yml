@@ -2,6 +2,7 @@ language: go
 go:
 - 1.5
 install: go get -t ./...
+after_sucess: make
 
 deploy:
   provider: releases
