@@ -44,6 +44,20 @@ those messages.
 
 For detailed (and current) command line usage run 'firehose -h'.
 
+# Releases
+This project is now set up with automatic travis-ci.org Github release. Anytime
+I bump the version travis-ci.org will build binaries for Linux, OSX, and
+Windows and push them to a Github release. To automatically get the latest full release use this handy one-liner:
+`wget $(curl -s https://api.github.com/repos/therealbill/slammer/releases/latest | grep 'browser_' | cut -d\" -f4)`
+
+To get just Linux binaries:
+`wget $(curl -s https://api.github.com/repos/therealbill/slammer/releases/latest | grep 'browser_' | cut -d\" -f4| egrep -v'(exe|darwin))`
+
+To get just Windows binaries:
+`wget $(curl -s https://api.github.com/repos/therealbill/slammer/releases/latest | grep 'browser_' | cut -d\" -f4| grep exe)`
+
+To get just OSX binaries:
+`wget $(curl -s https://api.github.com/repos/therealbill/slammer/releases/latest | grep 'browser_' | cut -d\" -f4| grep darwin)`
 
 # The Future?
 
@@ -52,6 +66,6 @@ does but for now it serves the need. If you've got something you'd like to see
 added, feel free to submit an issue on Github or, even better, an issue and a
 PR impementing it.
 
-## Auto-Releases
 
-I'm setting this up with travis-ci.org to build releases on new commits.
+
+
