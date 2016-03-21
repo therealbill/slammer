@@ -13,12 +13,14 @@ import (
 )
 
 var (
-	config client.DialConfig
-	wg     sync.WaitGroup
+	config  client.DialConfig
+	wg      sync.WaitGroup
+	VERSION string
 )
 
 func main() {
 	app := cli.NewApp()
+	app.Version = VERSION
 	app.Flags = []cli.Flag{
 		cli.IntFlag{
 			Name:  "clients,c",
