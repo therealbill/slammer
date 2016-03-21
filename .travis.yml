@@ -2,7 +2,9 @@ language: go
 go:
 - 1.5
 install: go get -t ./...
-script: make
+script: 
+  - go build -o firehose/firehose -ldflags "-X main.VERSION=${VERSION}" firehose/main.go 
+  - go build -o firetruck/firetruck -ldflags "-X main.VERSION=${VERSION}" firetruck/main.go 
 
 deploy:
   provider: releases
